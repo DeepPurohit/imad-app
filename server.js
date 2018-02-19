@@ -29,7 +29,7 @@ var date = data.date;
 var content = data.content;
 
 var htmlTemplate = 
-            ` <html>
+            `<html>
             <head>
                 <title>${title}</title>
                 <meta name="viewport" content="width=device-width , initial-scale=1"/>
