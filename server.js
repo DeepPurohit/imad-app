@@ -5,12 +5,66 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
+
+var articleOne = {
+    title: 'Article one | Deep Purohit',
+    heading: 'Article one',
+    date: '19th Feb, 18',
+    content: `
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>
+                
+                 <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </p>`
+};
+
+function ceateTemplate(data){
+
+var title = data.title;
+var heading = data.heading;
+var date = data.date;
+var content = data.content;
+
+var htmlTemplate = 
+            ` <html>
+            <head>
+                <title>${title}</title>
+                <meta name="viewport" content="width=device-width , initial-scale=1"/>
+                <link rel="stylesheet" href="/ul/style.css">
+            </head>
+            
+            <body>
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <hr/>
+                <div class="container">   
+                    <h2>${heading}</h2>
+                    
+                    <div>
+                        ${date}
+                    </div>
+                    
+                    <div>
+                       ${content}
+                    </div>
+                </div>
+            </body>
+            
+        </html>
+            `;
+            
+            return htmlTemplate();
+}
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.get('/article-one', function(req, res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+    res.send(createTemplate(articleOne));
 });
 
 app.get('/article-two', function(req, res){
