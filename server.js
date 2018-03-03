@@ -66,7 +66,7 @@ var htmlTemplate =
             </head>
             
             <body>
-                    <div>
+                    <div style="text-align:center">
                         <a href="/">Home</a>
                     </div>
                     <hr/>
