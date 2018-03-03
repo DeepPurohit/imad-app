@@ -15,40 +15,6 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 
-var articles= {
-    'article-one' : {
-        title: 'Article one | Deep Purohit',
-        heading: 'Article one',
-        date: '19th Feb, 18',
-        content: `
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
-                    
-                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>`
-                    },
-                    
-    'article-two' : {
-        title: 'Article two | Deep Purohit',
-        heading: 'Article two',
-        date: '19th Feb, 18',
-        content: `
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>`
-                    },
-                    
-    'article-three' : {
-        title: 'Article three | Deep Purohit',
-        heading: 'Article three',
-        date: '19th Feb, 18',
-        content: `
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>`
-                    },
-};
 
 function createTemplate(data){
 
@@ -109,7 +75,9 @@ app.get('/article/:articleName', function(req, res){
     
     var articleName = req.params.articleName;
     //var articleData = ;
-    pool.query("SELECT * FROM article WHERE title = '"+req.params.articleName + "'", function(err, result){
+    //pool.query("SELECT * FROM article WHERE title = '"+req.params.articleName + "'", function(err, result){
+      pool.query("SELECT * FROM article WHERE title = $1"+ [req.params.articleName] + "'", function(err, result){
+      
         if(err){
             res.status(500).send(err.toString());
         }
